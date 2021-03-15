@@ -12,8 +12,14 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  fileDb.addItem(req.body);
-  res.send(req.body);
+  if (!req.body) {
+    res.status(400).send({
+      error: "Not enough data to add new record",
+    });
+  } else {
+    res.status(200).send(`Successfully added${JSON.stringify(req.body)}`);
+    return fileDb.addItem(req.body);
+  }
 });
 
 module.exports = router;

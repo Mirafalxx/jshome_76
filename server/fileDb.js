@@ -14,10 +14,11 @@ module.exports = {
     }
   },
   getItems() {
-    return data;
+    return data.slice(-30);
   },
   addItem(item) {
     item.id = nanoid();
+    item.createdAt = new Date().toISOString();
     data.push(item);
     this.save();
   },
